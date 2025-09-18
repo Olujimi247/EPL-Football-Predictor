@@ -1,0 +1,38 @@
+import streamlit as st
+from werkzeug.security import generate_password_hash, check_password_hash
+
+# === Users dictionary with roles ===
+USERS = {
+    "admin": {"password": generate_password_hash("supersecret"), "role": "Admin"},
+    "guest": {"password": generate_password_hash("pass123"), "role": "Guest"},
+}
+
+st.title("Login")
+
+if "user" not in st.session_state:
+    st.session_state.user = None
+if "role" not in st.session_state:
+    st.session_state.role = None
+
+if not st.session_state.user:
+    with st.form("login_form"):
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        submitted = st.form_submit_button("Login")
+
+        if submitted:
+            if username in USERS and check_password_hash(USERS[username]["password"], password):
+                st.session_state.user = username
+                st.session_state.role = USERS[username]["role"]
+                st.success(f"Welcome {username} ({st.session_state.role}) ✅")
+                st.experimental_rerun()
+            else:
+                st.error("Invalid username or password ❌")
+    st.stop()
+
+st.info(f"Logged in as {st.session_state.user} ({st.session_state.role})")
+
+if st.button("Logout"):
+    st.session_state.user = None
+    st.session_state.role = None
+    st.experimental_rerun()

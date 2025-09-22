@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 import os
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
+#from werkzeug.security import generate_password_hash, check_password_hash
 
 # ===== Function to Save Predictions =====
 def save_prediction_to_csv(features: dict, predictions: dict, filename="predictions_log.csv"):
@@ -64,7 +64,7 @@ if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
 
 # Protected Areas
 
-st.title("⚽ Football Match Predictor")
+st.title("⚽ EPL Football Match Predictor")
 st.markdown("Predict outcomes for multiple betting markets (HDA, Over 2.5, BTTS, Double Chance).")
 st.markdown("👉 Go to **Probabilities Page** (see sidebar menu) to view probability details.")
 

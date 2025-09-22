@@ -2,24 +2,22 @@ import streamlit as st
 
 st.title("🔑 Login Page")
 
-# --- Load usernames and passwords from secrets safely ---
-if "passwords" in st.secrets:
-    users = st.secrets["passwords"]
-else:
-    st.warning("⚠️ Using default demo credentials. (Secrets not found)")
-    users = {"admin": "admin123", "guest": "guest123"}
+# Always show input fields
+username = st.text_input("Username")
+password = st.text_input("Password", type="password")
 
-    # --- Login form ---
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-
+# Check if login button is clicked
 if st.button("Login"):
-    if username in users and users[username] == password:
+    if "passwords" not in st.secrets:
+        st.error("❌ No passwords set in Streamlit secrets. Please configure them.")
+    elif username in st.secrets["passwords"] and password == st.secrets["passwords"][username]:
         st.session_state["authenticated"] = True
-        st.session_state["role"] = username   # track who logged in
-        st.success(f"Welcome {username}!")
+        st.session_state["role"] = username
+        st.success(f"✅ Welcome {username}!")
+        st.experimental_rerun()
     else:
-        st.error("Invalid username or password")
+        st.error("❌ Invalid username or password")
+
 
 
 

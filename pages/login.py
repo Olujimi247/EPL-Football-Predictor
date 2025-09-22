@@ -1,15 +1,23 @@
 import streamlit as st
 
-def login():
-    st.title("🔐 Login")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
+st.title("🔑 Login Page")
 
-    if st.button("Login"):
-        if username in st.secrets["passwords"] and password == st.secrets["passwords"][username]:
-            st.session_state["logged_in"] = True
-            st.session_state["role"] = username
-            st.success(f"Welcome, {username}!")
-        else:
-            st.error("Invalid username or password")
+# --- Load usernames and passwords from secrets safely ---
+if "passwords" in st.secrets:
+    users = st.secrets["passwords"]
+else:
+    st.warning("⚠️ Using default demo credentials. (Secrets not found)")
+    users = {"admin": "admin123", "guest": "guest123"}
+
+# --- Login form ---
+username = st.text_input("Username")
+password = st.text_input("Password", type="password")
+
+if st.button("Login"):
+    if username in users and users[username] == password:
+        st.session_state["authenticated"] = True
+        st.success(f"Welcome {username}!")
+    else:
+        st.error("Invalid username or password")
+
 

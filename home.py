@@ -62,11 +62,23 @@ if "authenticated" not in st.session_state or not st.session_state["authenticate
     st.error("You must log in first!")
     st.stop()
 
-st.title("🏠 Home Page")
-st.write("Welcome to the Football Predictor!")
-
-
 # Protected Areas
+
+# Redirect to login if not authenticated
+if "authenticated" not in st.session_state or not st.session_state["authenticated"]:
+    st.error("Please login first.")
+    st.stop()
+
+# --- Logout button ---
+if st.sidebar.button("🚪 Logout"):
+    st.session_state.clear()
+    st.success("You have been logged out.")
+    st.rerun()
+
+# Page content for logged-in users
+st.title("🏠 Home Page")
+st.write(f"Welcome {st.session_state['role']}!")
+
 
 st.title("⚽ EPL Football Match Predictor")
 st.markdown("Predict outcomes for multiple betting markets (HDA, Over 2.5, BTTS, Double Chance).")

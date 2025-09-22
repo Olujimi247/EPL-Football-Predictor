@@ -13,7 +13,7 @@ if st.button("Login"):
     elif username in st.secrets["passwords"] and password == st.secrets["passwords"][username]:
         st.session_state["authenticated"] = True
         st.session_state["role"] = username
-        st.success(f"✅ Welcome {username}!")
+        st.success(f"✅ Welcome {username}! Go to home or probability")
     else:
         st.error("❌ Invalid username or password")
 

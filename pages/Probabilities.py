@@ -23,8 +23,7 @@ if "authenticated" not in st.session_state or not st.session_state["authenticate
 if st.session_state.get("role") != "admin":
     st.error("🚫 Access denied: Admins only.")
     st.stop()
-
-st.title("📊 Probability Page")
+    
 st.write("Here are the probability predictions...")
 
 

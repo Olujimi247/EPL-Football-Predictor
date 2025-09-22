@@ -15,9 +15,9 @@ else:
 
 if st.button("Login"):
     if username in users and users[username] == password:
-    st.session_state["authenticated"] = True
-    st.session_state["role"] = username   # track who logged in
-    st.success(f"Welcome {username}!")
+        st.session_state["authenticated"] = True
+        st.session_state["role"] = username   # track who logged in
+        st.success(f"Welcome {username}!")
     else:
         st.error("Invalid username or password")
 

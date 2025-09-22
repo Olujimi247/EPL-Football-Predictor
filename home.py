@@ -58,9 +58,13 @@ models = {
 
 st.set_page_config(page_title="Football Match Predictor", layout="wide")
 
-if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
-    st.warning("Please log in first.")
-    st.switch_page("pages/login.py")  # redirect to login
+if "authenticated" not in st.session_state or not st.session_state["authenticated"]:
+    st.error("You must log in first!")
+    st.stop()
+
+st.title("🏠 Home Page")
+st.write("Welcome to the Football Predictor!")
+
 
 # Protected Areas
 

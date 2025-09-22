@@ -14,18 +14,19 @@ st.title("📊 Prediction Probabilities")
 
 # Protected Areas
 
-if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
-    st.warning("Please log in first.")
-    st.switch_page("pages/login.py")
-
-# Only admin can see this page
-if st.session_state["role"] != "admin":
-    st.error("Access denied. Admin only.")
+# --- Access control ---
+if "authenticated" not in st.session_state or not st.session_state["authenticated"]:
+    st.error("You must log in first!")
     st.stop()
 
-if st.button("Logout", key="logout_prob"):
-    st.session_state["logged_in"] = False
-    st.rerun()
+# Optional: Restrict this page to admin only
+if st.session_state.get("role") != "admin":
+    st.error("🚫 Access denied: Admins only.")
+    st.stop()
+
+st.title("📊 Probability Page")
+st.write("Here are the probability predictions...")
+
 
 # --- Prefill from session_state if available ---
 defaults = st.session_state.get("prob_input", {})

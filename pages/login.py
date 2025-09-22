@@ -9,9 +9,9 @@ else:
     st.warning("⚠️ Using default demo credentials. (Secrets not found)")
     users = {"admin": "admin123", "guest": "guest123"}
 
-# --- Login form ---
-username = st.text_input("Username")
-password = st.text_input("Password", type="password")
+    # --- Login form ---
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
 
 if st.button("Login"):
     if username in users and users[username] == password:
